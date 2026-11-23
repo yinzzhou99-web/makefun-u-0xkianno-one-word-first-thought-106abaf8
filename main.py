@@ -1,26 +1,18 @@
-#!/usr/bin/env python3
-"""One Word, First Thought: emit the chosen word to /output/entry.txt.
+"""Write a single word to the output file."""
 
-The pick is Defenestration: the act of throwing something out of a window.
-Surprising on arrival, vivid in one image, funny in its sound, and the kind
-of word nobody reaches for by default. Stdlib only, deterministic, no
-network. The output directory is created if needed but never removed; only
-entry.txt is written inside it.
-"""
-
-from pathlib import Path
+import os
+import sys
 
 WORD = "Defenestration"
 
-OUT_PATH = Path("/output") / "entry.txt"
+OUTPUT_PATH = os.path.join("/output", "entry.txt")
 
 
-def main() -> None:
+def main():
     if not WORD or " " in WORD:
-        raise SystemExit("word fails the single-word gate")
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUT_PATH, "w", encoding="utf-8", newline="") as f:
-        f.write(WORD)
+        sys.exit("error: entry must be a single non-empty word")
+    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as handle:
+        handle.write(WORD)
 
 
 if __name__ == "__main__":
