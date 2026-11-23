@@ -16,8 +16,11 @@ OUT_PATH = Path("/output") / "entry.txt"
 
 
 def main() -> None:
+    if not WORD or " " in WORD:
+        raise SystemExit("word fails the single-word gate")
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(WORD, encoding="utf-8")
+    with open(OUT_PATH, "w", encoding="utf-8", newline="") as f:
+        f.write(WORD)
 
 
 if __name__ == "__main__":
